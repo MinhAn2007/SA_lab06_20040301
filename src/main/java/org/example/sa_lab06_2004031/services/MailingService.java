@@ -1,4 +1,4 @@
-package org.example.sa_lab06_2004031.utils;
+package org.example.sa_lab06_2004031.services;
 
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeBodyPart;
@@ -8,6 +8,7 @@ import jakarta.mail.internet.MimeMultipart;
 import java.util.Properties;
 import java.util.logging.Logger;
 import jakarta.mail.*;
+import org.example.sa_lab06_2004031.utils.CONSTANTS;
 
 public class MailingService {
     private static final Logger logger = Logger.getLogger(MailingService.class.getName());

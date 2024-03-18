@@ -1,13 +1,16 @@
 package org.example.sa_lab06_2004031.services;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import jakarta.jms.Message;
 import jakarta.jms.TextMessage;
 import org.example.sa_lab06_2004031.models.Product;
 import org.example.sa_lab06_2004031.repositories.ProductOrderRepository;
 import org.example.sa_lab06_2004031.repositories.ProductRepository;
+import org.example.sa_lab06_2004031.utils.EncodingText;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Service;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.List;
 
@@ -27,11 +30,12 @@ public class ProductService {
             //1. read message data
             String encodeJson = ((TextMessage) jsonMessage).getText();
             //2. ==> decode
-//            List<Product> products=EncodingUtils.decode(encodeJson);
+            ObjectMapper objectMapper = new ObjectMapper();
+            List<Product> products = objectMapper.readValue(encodeJson, new TypeReference<List<Product>>(){});
             //3. check for quantity
-//            String result = makeOrder(products);
+            String result = makeOrder(products);
             //4. make order or reject
-//            MailingService.sendTextMail("@gmail.com",result);
+            MailingService.sendTextMail("@gmail.com",result);
             //5. send email
         }
 
