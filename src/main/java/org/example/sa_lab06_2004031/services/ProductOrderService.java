@@ -16,5 +16,7 @@ public class ProductOrderService {
     public List<ProductOrder> findAll() {
         return productOrderRepository.findAll();
     }
-
+    public ProductOrder save(ProductOrder productOrder) {
+        return productOrderRepository.save(productOrder);
+    }
 }

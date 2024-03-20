@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Đặt hàng</title>
+    <style>
+        /* CSS styles */
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Đặt hàng</h1>
+    <form action="#" th:action="@{/product/addOrder}" method="post" id="orderForm">
+        <!-- Lặp qua danh sách sản phẩm đã chọn và hiển thị thông tin của từng sản phẩm -->
+        <div th:each="product : ${productList}">
+            <input type="hidden" th:name="selectedIds" th:value="${product.id}" />
+            <label>
+                <span>Tên sản phẩm:</span>
+                <span th:text="${product.name}"></span>
+            </label>
+            <label>
+                <span>Số lượng:</span>
+                <input type="number" name="quantity" th:required="required" min="1">
+            </label>
+            <hr> <!-- Thêm đường kẻ ngăn cách giữa các sản phẩm -->
+        </div>
+        <label>
+            <span>Tên khách hàng:</span>
+            <input type="text" name="customerName" th:required="required">
+        </label>
+        <label>
+            <span>Địa chỉ:</span>
+            <textarea name="address" rows="4" th:required="required"></textarea>
+        </label>
+        <label>
+            <span>Phương thức thanh toán:</span>
+            <select name="paymentMethod" th:required="required">
+                <option value="cash">Tiền mặt</option>
+                <option value="creditCard">Thẻ tín dụng</option>
+                <option value="bankTransfer">Chuyển khoản ngân hàng</option>
+            </select>
+        </label>
+        <label>
+            <span>Ghi chú:</span>
+            <textarea name="notes" rows="4"></textarea>
+        </label>
+        <button type="submit">Đặt hàng</button>
+    </form>
+
+    <!-- Hiển thị thông báo từ controller -->
+    <div th:if="${errorMessage}" class="error-message">
+        <p th:text="${errorMessage}"></p>
+    </div>
+</div>
+
+</body>
+</html>

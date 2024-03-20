@@ -5,18 +5,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderForm {
-    private Long id;
-    private String name;
-    private String email;
+    private String productName;
+    private int quantity;
+    private String customerName;
     private String address;
-    private String phone;
-    private String note;
-    private Long productId;
-    private Integer quantity;
-    private Long orderId;
+    private String paymentMethod;
+    private String notes;
+    private List<Long> selectedIds;
+
 }

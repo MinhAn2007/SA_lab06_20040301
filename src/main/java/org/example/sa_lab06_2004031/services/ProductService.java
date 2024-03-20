@@ -12,7 +12,9 @@ import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -21,6 +23,17 @@ public class ProductService {
     private ProductRepository productRepository;
     public List<Product> findAll() {
         return productRepository.findAll();
+    }
+    public Product save(Product product) {
+        return productRepository.save(product);
+    }
+    public List<Product> findProductsByIds(List<Long> ids) {
+        List<Product> productList = new ArrayList<>();
+        for (Long id : ids) {
+            Optional<Product> productOptional = productRepository.findById(id);
+            productOptional.ifPresent(productList::add);
+        }
+        return productList;
     }
     @JmsListener(destination = "order_products")
     public void processOrder(final Message jsonMessage) throws Exception {
